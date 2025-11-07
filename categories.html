@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Categories - Universal Tools Hub</title>
+    <meta name="description" content="Browse tools by category. Find text tools, calculators, generators, developer tools, and more.">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles/main.css">
+    <link rel="icon" type="image/x-icon" href="assets/favicon.ico">
+</head>
+<body>
+    <!-- Header -->
+    <header class="header">
+        <nav class="nav container">
+            <div class="nav-brand">
+                <h1 class="brand-title">Universal Tools Hub</h1>
+            </div>
+            <div class="nav-links">
+                <a href="index.html" class="nav-link">Home</a>
+                <a href="categories.html" class="nav-link active">Categories</a>
+                <a href="platforms.html" class="nav-link">Platforms</a>
+                <a href="about.html" class="nav-link">About</a>
+                <a href="admin/" class="nav-link admin-link">Admin</a>
+            </div>
+        </nav>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="container">
+            <div class="hero-content">
+                <h1 class="hero-title">Tool Categories</h1>
+                <p class="hero-subtitle">Explore tools organized by category. Find exactly what you need.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- All Categories -->
+    <section class="categories">
+        <div class="container">
+            <div class="categories-grid" id="allCategories">
+                <!-- Categories will be populated by JavaScript -->
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h3 class="footer-title">Universal Tools Hub</h3>
+                    <p class="footer-description">500+ free online tools for everyone. No registration required.</p>
+                </div>
+                <div class="footer-section">
+                    <h4 class="footer-subtitle">Quick Links</h4>
+                    <ul class="footer-links">
+                        <li><a href="index.html">Home</a></li>
+                        <li><a href="categories.html">Categories</a></li>
+                        <li><a href="platforms.html">Platforms</a></li>
+                        <li><a href="about.html">About</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h4 class="footer-subtitle">Categories</h4>
+                    <ul class="footer-links">
+                        <li><a href="category/text-tools.html">Text Tools</a></li>
+                        <li><a href="category/calculators.html">Calculators</a></li>
+                        <li><a href="category/generators.html">Generators</a></li>
+                        <li><a href="category/developer-tools.html">Developer Tools</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h4 class="footer-subtitle">Support</h4>
+                    <ul class="footer-links">
+                        <li><a href="contact.html">Contact</a></li>
+                        <li><a href="privacy.html">Privacy Policy</a></li>
+                        <li><a href="terms.html">Terms of Service</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2025 Universal Tools Hub. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="js/main.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            loadAllCategories();
+        });
+
+        function loadAllCategories() {
+            fetch('data/tools.json')
+                .then(response => response.json())
+                .then(data => {
+                    const categoriesContainer = document.getElementById('allCategories');
+                    const categories = data.categories;
+                    
+                    categoriesContainer.innerHTML = '';
+                    
+                    Object.keys(categories).forEach(categoryName => {
+                        const count = categories[categoryName];
+                        const categoryCard = createCategoryCard(categoryName, count);
+                        categoriesContainer.appendChild(categoryCard);
+                    });
+                })
+                .catch(error => {
+                    console.error('Error loading categories:', error);
+                    // Fallback data
+                    const fallbackCategories = {
+                        'Text Tools': 45,
+                        'Calculators': 38,
+                        'Generators': 52,
+                        'Developer Tools': 67,
+                        'Video & Audio': 41,
+                        'SEO Tools': 35,
+                        'Image Tools': 29,
+                        'PDF Tools': 23
+                    };
+                    
+                    const categoriesContainer = document.getElementById('allCategories');
+                    Object.keys(fallbackCategories).forEach(categoryName => {
+                        const count = fallbackCategories[categoryName];
+                        const categoryCard = createCategoryCard(categoryName, count);
+                        categoriesContainer.appendChild(categoryCard);
+                    });
+                });
+        }
+
+        function createCategoryCard(name, count) {
+            const card = document.createElement('div');
+            card.className = 'category-card';
+            card.onclick = () => {
+                window.location.href = `category/${name.toLowerCase().replace(/\s+/g, '-')}.html`;
+            };
+            
+            const icon = getCategoryIcon(name);
+            
+            card.innerHTML = `
+                <div class="category-icon">${icon}</div>
+                <h3 class="category-title">${name}</h3>
+                <p class="category-count">${count}+ tools</p>
+            `;
+            
+            return card;
+        }
+
+        function getCategoryIcon(category) {
+            const icons = {
+                'Text Tools': '✍️',
+                'Calculators': '🧮',
+                'Generators': '⚙️',
+                'Developer Tools': '💻',
+                'Video & Audio': '🎬',
+                'SEO Tools': '🔍',
+                'Image Tools': '🖼️',
+                'PDF Tools': '📄',
+                'Unit Converters': '📏',
+                'Color Tools': '🎨',
+                'Crypto Tools': '₿',
+                'Social Media': '👥',
+                'Productivity': '✅',
+                'Educational': '🎓',
+                'Data Tools': '📊',
+                'Format Tools': '📋',
+                'Random Tools': '🎲',
+                'Time Tools': '⏰',
+                'URL Tools': '🔗',
+                'API Tools': '🔌',
+                'Database Tools': '🗄️',
+                'Math Tools': '📐',
+                'Weather Tools': '🌤️',
+                'Translation Tools': '🌍',
+                'Code Tools': '💻',
+                'Security Tools': '🔒',
+                'Network Tools': '🌐',
+                'System Tools': '⚙️'
+            };
+            return icons[category] || '🛠️';
+        }
+    </script>
+</body>
+</html>

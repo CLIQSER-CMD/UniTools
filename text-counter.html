@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Text Counter - Universal Tools Hub</title>
+    <meta name="description" content="Count words, characters, sentences, paragraphs, and reading time in your text. Free online text counter tool.">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles/main.css">
+    <link rel="stylesheet" href="styles/tool.css">
+    <link rel="icon" type="image/x-icon" href="assets/favicon.ico">
+</head>
+<body>
+    <!-- Header -->
+    <header class="header">
+        <nav class="nav container">
+            <div class="nav-brand">
+                <h1 class="brand-title">Universal Tools Hub</h1>
+            </div>
+            <div class="nav-links">
+                <a href="index.html" class="nav-link">Home</a>
+                <a href="categories.html" class="nav-link">Categories</a>
+                <a href="platforms.html" class="nav-link">Platforms</a>
+                <a href="about.html" class="nav-link">About</a>
+                <a href="admin/" class="nav-link admin-link">Admin</a>
+            </div>
+        </nav>
+    </header>
+
+    <!-- Tool Page -->
+    <main class="tool-page">
+        <div class="container">
+            <div class="tool-header">
+                <div class="tool-icon">📝</div>
+                <h1 class="tool-title">Text Counter</h1>
+                <p class="tool-description">Count words, characters, sentences, paragraphs, and reading time in your text.</p>
+                <div class="tool-breadcrumb">
+                    <a href="index.html">Home</a> > 
+                    <a href="category/text-tools.html">Text Tools</a> > 
+                    <span>Text Counter</span>
+                </div>
+            </div>
+
+            <div class="tool-content">
+                <div class="tool-section">
+                    <div class="input-section">
+                        <h3>Enter Your Text</h3>
+                        <textarea 
+                            id="textInput" 
+                            class="text-input" 
+                            placeholder="Paste or type your text here..."
+                            rows="10"
+                        ></textarea>
+                        <div class="input-actions">
+                            <button class="btn btn-secondary" onclick="clearText()">Clear</button>
+                            <button class="btn btn-secondary" onclick="loadSample()">Load Sample</button>
+                            <button class="btn btn-primary" onclick="downloadResults()">Download Results</button>
+                        </div>
+                    </div>
+
+                    <div class="results-section">
+                        <h3>Results</h3>
+                        <div class="results-grid">
+                            <div class="result-item">
+                                <div class="result-label">Words</div>
+                                <div class="result-value" id="wordCount">0</div>
+                            </div>
+                            <div class="result-item">
+                                <div class="result-label">Characters</div>
+                                <div class="result-value" id="charCount">0</div>
+                            </div>
+                            <div class="result-item">
+                                <div class="result-label">Characters (no spaces)</div>
+                                <div class="result-value" id="charNoSpace">0</div>
+                            </div>
+                            <div class="result-item">
+                                <div class="result-label">Sentences</div>
+                                <div class="result-value" id="sentenceCount">0</div>
+                            </div>
+                            <div class="result-item">
+                                <div class="result-label">Paragraphs</div>
+                                <div class="result-value" id="paragraphCount">0</div>
+                            </div>
+                            <div class="result-item">
+                                <div class="result-label">Lines</div>
+                                <div class="result-value" id="lineCount">0</div>
+                            </div>
+                            <div class="result-item">
+                                <div class="result-label">Reading Time</div>
+                                <div class="result-value" id="readingTime">0 sec</div>
+                            </div>
+                            <div class="result-item">
+                                <div class="result-label">Speaking Time</div>
+                                <div class="result-value" id="speakingTime">0 sec</div>
+                            </div>
+                        </div>
+
+                        <div class="detailed-stats">
+                            <h4>Detailed Statistics</h4>
+                            <div class="stats-content">
+                                <div class="stat-row">
+                                    <span>Longest Word:</span>
+                                    <span id="longestWord">-</span>
+                                </div>
+                                <div class="stat-row">
+                                    <span>Average Word Length:</span>
+                                    <span id="avgWordLength">0</span>
+                                </div>
+                                <div class="stat-row">
+                                    <span>Most Common Word:</span>
+                                    <span id="mostCommonWord">-</span>
+                                </div>
+                                <div class="stat-row">
+                                    <span>Unique Words:</span>
+                                    <span id="uniqueWords">0</span>
+                                </div>
+                                <div class="stat-row">
+                                    <span>Word Density:</span>
+                                    <span id="wordDensity">0%</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="tool-section info-section">
+                    <h3>About This Tool</h3>
+                    <p>Our Text Counter tool helps you analyze your text content with detailed statistics including:</p>
+                    <ul>
+                        <li><strong>Word Count:</strong> Number of words in your text</li>
+                        <li><strong>Character Count:</strong> Total characters with and without spaces</li>
+                        <li><strong>Sentence Count:</strong> Number of sentences based on punctuation</li>
+                        <li><strong>Paragraph Count:</strong> Number of paragraphs separated by blank lines</li>
+                        <li><strong>Reading Time:</strong> Estimated time to read the text (200 words per minute)</li>
+                        <li><strong>Speaking Time:</strong> Estimated time to speak the text (150 words per minute)</li>
+                    </ul>
+                    
+                    <h4>Use Cases</h4>
+                    <ul>
+                        <li>Academic writing: Meet word count requirements</li>
+                        <li>Content writing: Optimize article length for SEO</li>
+                        <li>Social media: Ensure posts meet character limits</li>
+                        <li>Copywriting: Analyze text for marketing effectiveness</li>
+                        <li>Legal documents: Track document length and complexity</li>
+                    </ul>
+                </div>
+
+                <div class="tool-section related-tools">
+                    <h3>Related Tools</h3>
+                    <div class="related-grid">
+                        <a href="text-case-converter.html" class="related-tool">
+                            <span class="tool-icon">🔤</span>
+                            <span class="tool-name">Text Case Converter</span>
+                        </a>
+                        <a href="lorem-ipsum.html" class="related-tool">
+                            <span class="tool-icon">📜</span>
+                            <span class="tool-name">Lorem Ipsum Generator</span>
+                        </a>
+                        <a href="word-frequency-analyzer.html" class="related-tool">
+                            <span class="tool-icon">📊</span>
+                            <span class="tool-name">Word Frequency Analyzer</span>
+                        </a>
+                        <a href="reverse-text.html" class="related-tool">
+                            <span class="tool-icon">↔️</span>
+                            <span class="tool-name">Reverse Text</span>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h3 class="footer-title">Universal Tools Hub</h3>
+                    <p class="footer-description">500+ free online tools for everyone. No registration required.</p>
+                </div>
+                <div class="footer-section">
+                    <h4 class="footer-subtitle">Quick Links</h4>
+                    <ul class="footer-links">
+                        <li><a href="index.html">Home</a></li>
+                        <li><a href="categories.html">Categories</a></li>
+                        <li><a href="platforms.html">Platforms</a></li>
+                        <li><a href="about.html">About</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h4 class="footer-subtitle">Text Tools</h4>
+                    <ul class="footer-links">
+                        <li><a href="text-counter.html">Text Counter</a></li>
+                        <li><a href="text-case-converter.html">Text Case Converter</a></li>
+                        <li><a href="lorem-ipsum.html">Lorem Ipsum Generator</a></li>
+                        <li><a href="word-frequency-analyzer.html">Word Frequency Analyzer</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h4 class="footer-subtitle">Support</h4>
+                    <ul class="footer-links">
+                        <li><a href="contact.html">Contact</a></li>
+                        <li><a href="privacy.html">Privacy Policy</a></li>
+                        <li><a href="terms.html">Terms of Service</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2025 Universal Tools Hub. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="js/main.js"></script>
+    <script src="js/text-counter.js"></script>
+</body>
+</html>

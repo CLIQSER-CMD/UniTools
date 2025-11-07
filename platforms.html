@@ -1,0 +1,227 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Platforms - Universal Tools Hub</title>
+    <meta name="description" content="Browse tools by platform. Find YouTube, Instagram, Facebook, Twitter, Snapchat, and more platform-specific tools.">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles/main.css">
+    <link rel="icon" type="image/x-icon" href="assets/favicon.ico">
+</head>
+<body>
+    <!-- Header -->
+    <header class="header">
+        <nav class="nav container">
+            <div class="nav-brand">
+                <h1 class="brand-title">Universal Tools Hub</h1>
+            </div>
+            <div class="nav-links">
+                <a href="index.html" class="nav-link">Home</a>
+                <a href="categories.html" class="nav-link">Categories</a>
+                <a href="platforms.html" class="nav-link active">Platforms</a>
+                <a href="about.html" class="nav-link">About</a>
+                <a href="admin/" class="nav-link admin-link">Admin</a>
+            </div>
+        </nav>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="container">
+            <div class="hero-content">
+                <h1 class="hero-title">Platform-Specific Tools</h1>
+                <p class="hero-subtitle">Find specialized tools designed specifically for your favorite platforms.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Platforms Grid -->
+    <section class="platforms">
+        <div class="container">
+            <div class="platforms-grid" id="allPlatforms">
+                <!-- Platforms will be populated by JavaScript -->
+            </div>
+        </div>
+    </section>
+
+    <!-- Popular Platform Tools -->
+    <section class="recent-tools">
+        <div class="container">
+            <h2 class="section-title">Popular Platform Tools</h2>
+            <div class="tools-grid" id="popularPlatformTools">
+                <!-- Tools will be populated by JavaScript -->
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h3 class="footer-title">Universal Tools Hub</h3>
+                    <p class="footer-description">500+ free online tools for everyone. No registration required.</p>
+                </div>
+                <div class="footer-section">
+                    <h4 class="footer-subtitle">Quick Links</h4>
+                    <ul class="footer-links">
+                        <li><a href="index.html">Home</a></li>
+                        <li><a href="categories.html">Categories</a></li>
+                        <li><a href="platforms.html">Platforms</a></li>
+                        <li><a href="about.html">About</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h4 class="footer-subtitle">Platforms</h4>
+                    <ul class="footer-links">
+                        <li><a href="platform/youtube-tools.html">YouTube</a></li>
+                        <li><a href="platform/instagram-tools.html">Instagram</a></li>
+                        <li><a href="platform/facebook-tools.html">Facebook</a></li>
+                        <li><a href="platform/twitter-tools.html">Twitter (X)</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h4 class="footer-subtitle">Support</h4>
+                    <ul class="footer-links">
+                        <li><a href="contact.html">Contact</a></li>
+                        <li><a href="privacy.html">Privacy Policy</a></li>
+                        <li><a href="terms.html">Terms of Service</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2025 Universal Tools Hub. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="js/main.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            loadAllPlatforms();
+            loadPopularPlatformTools();
+        });
+
+        function loadAllPlatforms() {
+            fetch('data/tools.json')
+                .then(response => response.json())
+                .then(data => {
+                    const platformsContainer = document.getElementById('allPlatforms');
+                    const platforms = data.platforms;
+                    
+                    platformsContainer.innerHTML = '';
+                    
+                    Object.keys(platforms).forEach(platformName => {
+                        const count = platforms[platformName];
+                        const platformCard = createPlatformCard(platformName, count);
+                        platformsContainer.appendChild(platformCard);
+                    });
+                })
+                .catch(error => {
+                    console.error('Error loading platforms:', error);
+                    // Fallback data
+                    const fallbackPlatforms = {
+                        'YouTube': 28,
+                        'Instagram': 24,
+                        'Facebook': 19,
+                        'Twitter (X)': 22,
+                        'Snapchat': 15,
+                        'TikTok': 12,
+                        'LinkedIn': 8,
+                        'Pinterest': 6,
+                        'Discord': 5,
+                        'Telegram': 3,
+                        'WhatsApp': 2
+                    };
+                    
+                    const platformsContainer = document.getElementById('allPlatforms');
+                    Object.keys(fallbackPlatforms).forEach(platformName => {
+                        const count = fallbackPlatforms[platformName];
+                        const platformCard = createPlatformCard(platformName, count);
+                        platformsContainer.appendChild(platformCard);
+                    });
+                });
+        }
+
+        function createPlatformCard(name, count) {
+            const card = document.createElement('div');
+            card.className = 'platform-card';
+            card.onclick = () => {
+                window.location.href = `platform/${name.toLowerCase().replace(/\s+/g, '-')}-tools.html`;
+            };
+            
+            const icon = getPlatformIcon(name);
+            
+            card.innerHTML = `
+                <div class="platform-icon ${name.toLowerCase().replace(/\s+/g, '-')}">${icon}</div>
+                <h3 class="platform-title">${name}</h3>
+                <p class="platform-count">${count} tools</p>
+            `;
+            
+            return card;
+        }
+
+        function getPlatformIcon(platform) {
+            const icons = {
+                'YouTube': '📺',
+                'Instagram': '📷',
+                'Facebook': '👥',
+                'Twitter (X)': '🐦',
+                'Snapchat': '👻',
+                'TikTok': '🎵',
+                'LinkedIn': '💼',
+                'Pinterest': '📌',
+                'Discord': '💬',
+                'Telegram': '✈️',
+                'WhatsApp': '📱',
+                'General': '🛠️'
+            };
+            return icons[platform] || '🌐';
+        }
+
+        function loadPopularPlatformTools() {
+            fetch('data/tools.json')
+                .then(response => response.json())
+                .then(data => {
+                    const toolsContainer = document.getElementById('popularPlatformTools');
+                    const platformTools = data.tools.filter(tool => 
+                        tool.platforms.some(platform => platform !== 'General')
+                    ).slice(0, 12);
+                    
+                    toolsContainer.innerHTML = '';
+                    
+                    platformTools.forEach(tool => {
+                        const toolCard = createToolCard(tool);
+                        toolsContainer.appendChild(toolCard);
+                    });
+                })
+                .catch(error => {
+                    console.error('Error loading platform tools:', error);
+                });
+        }
+
+        function createToolCard(tool) {
+            const card = document.createElement('a');
+            card.href = `tools/${tool.id}.html`;
+            card.className = 'tool-card';
+            
+            card.innerHTML = `
+                <div class="tool-header">
+                    <div class="tool-icon">${tool.icon}</div>
+                    <h3 class="tool-title">${tool.name}</h3>
+                </div>
+                <p class="tool-description">${tool.description}</p>
+                <div class="tool-meta">
+                    <span class="tool-category">${tool.category}</span>
+                    ${tool.platforms.map(platform => `<span class="tool-platforms">${platform}</span>`).join('')}
+                </div>
+            `;
+            
+            return card;
+        }
+    </script>
+</body>
+</html>
